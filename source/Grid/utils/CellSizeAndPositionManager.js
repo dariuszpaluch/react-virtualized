@@ -148,16 +148,26 @@ export default class CellSizeAndPositionManager {
    * As cells are measured, the estimate will be updated.
    */
   getTotalSize(): number {
-    const lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
-    const totalSizeOfMeasuredCells =
-      lastMeasuredCellSizeAndPosition.offset +
-      lastMeasuredCellSizeAndPosition.size;
-    const numUnmeasuredCells = this._cellCount - this._lastMeasuredIndex - 1;
-    const totalSizeOfUnmeasuredCells =
-      numUnmeasuredCells * this._estimatedCellSize;
-    return totalSizeOfMeasuredCells + totalSizeOfUnmeasuredCells;
-  }
+    // console.log(this._lastMeasuredIndex);
+    //
+    // const lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
+    // const totalSizeOfMeasuredCells =
+    //   lastMeasuredCellSizeAndPosition.offset +
+    //   lastMeasuredCellSizeAndPosition.size;
+    // const numUnmeasuredCells = this._cellCount - this._lastMeasuredIndex - 1;
+    // const totalSizeOfUnmeasuredCells =
+    //   numUnmeasuredCells * this._estimatedCellSize;
+    // return totalSizeOfMeasuredCells + totalSizeOfUnmeasuredCells;
 
+    let sum = 0;
+    for (let index = 0; index < this._cellCount; index++) {
+      sum += this._cellSizeAndPositionData[index]
+        ? this._cellSizeAndPositionData[index].size
+        : this._estimatedCellSize;
+    }
+
+    return sum;
+  }
   /**
    * Determines a new offset that ensures a certain cell is visible, given the current offset.
    * If the cell is already visible then the current offset will be returned.

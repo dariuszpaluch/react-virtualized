@@ -1,5 +1,10 @@
 Changelog
 ------------
+##### 9.21.0-psmm
+Change method Grid.CellSizeAndPositionManager.getTotalSize;
+
+Because this method return wrong value after remove 2 rows and add new row instead.
+
 ##### 9.21.0
 
 * 🎉 Added new use case example for CellMeasurer. ([wuweiweiwu](https://github.com/wuweiweiwu) - [#1168](https://github.com/bvaughn/react-virtualized/pull/1168))
