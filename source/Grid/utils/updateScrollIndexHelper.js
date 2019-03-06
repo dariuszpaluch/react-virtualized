@@ -92,7 +92,8 @@ export default function updateScrollIndexHelper({
     // Just check to make sure we're still okay.
     // Only adjust the scroll position if we've scrolled below the last set of rows.
     if (scrollOffset > cellSizeAndPositionManager.getTotalSize() - size) {
-      updateScrollIndexCallback(cellCount - 1);
+      scrollOffset > cellSizeAndPositionManager.myGetTotalSize() - size &&
+        updateScrollIndexCallback(cellCount - 1);
     }
   }
 }

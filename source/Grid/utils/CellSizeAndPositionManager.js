@@ -148,17 +148,17 @@ export default class CellSizeAndPositionManager {
    * As cells are measured, the estimate will be updated.
    */
   getTotalSize(): number {
-    // console.log(this._lastMeasuredIndex);
-    //
-    // const lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
-    // const totalSizeOfMeasuredCells =
-    //   lastMeasuredCellSizeAndPosition.offset +
-    //   lastMeasuredCellSizeAndPosition.size;
-    // const numUnmeasuredCells = this._cellCount - this._lastMeasuredIndex - 1;
-    // const totalSizeOfUnmeasuredCells =
-    //   numUnmeasuredCells * this._estimatedCellSize;
-    // return totalSizeOfMeasuredCells + totalSizeOfUnmeasuredCells;
+    const lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
+    const totalSizeOfMeasuredCells =
+      lastMeasuredCellSizeAndPosition.offset +
+      lastMeasuredCellSizeAndPosition.size;
+    const numUnmeasuredCells = this._cellCount - this._lastMeasuredIndex - 1;
+    const totalSizeOfUnmeasuredCells =
+      numUnmeasuredCells * this._estimatedCellSize;
+    return totalSizeOfMeasuredCells + totalSizeOfUnmeasuredCells;
+  }
 
+  myGetTotalSize(): number {
     let sum = 0;
     for (let index = 0; index < this._cellCount; index++) {
       sum += this._cellSizeAndPositionData[index]
