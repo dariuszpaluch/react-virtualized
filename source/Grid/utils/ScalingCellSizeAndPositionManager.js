@@ -97,6 +97,13 @@ export default class ScalingCellSizeAndPositionManager {
     );
   }
 
+  myGetTotalSize(): number {
+    return Math.min(
+      this._maxScrollSize,
+      this._cellSizeAndPositionManager.myGetTotalSize(),
+    );
+  }
+
   /** See CellSizeAndPositionManager#getUpdatedOffsetForIndex */
   getUpdatedOffsetForIndex({
     align = 'auto',
