@@ -16,7 +16,7 @@ import DynamicHeightList from './CellMeasurer.DynamicHeightList.example.js';
 import DynamicHeightTableColumn from './CellMeasurer.DynamicHeightTableColumn.example.js';
 
 const demoComponents = [
-  DynamicWidthGrid,
+  DynamicHeightList,
   DynamicHeightGrid,
   DynamicWidthMultiGrid,
   DynamicHeightList,
@@ -66,25 +66,24 @@ export default class CellMeasurerExample extends React.PureComponent {
           {({width}) => (
             <div style={{width}}>
               <div>
-                <strong>Grid</strong>:
+                <strong>Grid</strong>:{/*<Tab id={0} {...buttonProps}>*/}
+                {/*dynamic width text*/}
+                {/*</Tab>*/}
+                {/*<Tab id={1} {...buttonProps}>*/}
+                {/*dynamic height text*/}
+                {/*</Tab>*/}
+                {/*<strong>MultiGrid</strong>:*/}
+                {/*<Tab id={2} {...buttonProps}>*/}
+                {/*dynamic width text*/}
+                {/*</Tab>*/}
+                {/*<strong>List</strong>:*/}
                 <Tab id={0} {...buttonProps}>
-                  dynamic width text
-                </Tab>
-                <Tab id={1} {...buttonProps}>
-                  dynamic height text
-                </Tab>
-                <strong>MultiGrid</strong>:
-                <Tab id={2} {...buttonProps}>
-                  dynamic width text
-                </Tab>
-                <strong>List</strong>:
-                <Tab id={3} {...buttonProps}>
                   dynamic height image
                 </Tab>
-                <strong>Table</strong>:
-                <Tab id={4} {...buttonProps}>
-                  mixed fixed and dynamic height text
-                </Tab>
+                {/*<strong>Table</strong>:*/}
+                {/*<Tab id={4} {...buttonProps}>*/}
+                {/*mixed fixed and dynamic height text*/}
+                {/*</Tab>*/}
               </div>
 
               <DemoComponent
