@@ -29,7 +29,12 @@ type Props = {
   scrollToRow: number,
 };
 
-type State = ScrollIndices;
+type State = {
+  scrollToColumn: number,
+  scrollToRow: number,
+  prevPropsScrollToColumn: number,
+  prevPropsScrollToRow: number,
+};
 
 class ArrowKeyStepper extends React.PureComponent<Props, State> {
   static defaultProps = {
@@ -39,10 +44,11 @@ class ArrowKeyStepper extends React.PureComponent<Props, State> {
     scrollToColumn: 0,
     scrollToRow: 0,
   };
-
   state = {
     scrollToColumn: 0,
     scrollToRow: 0,
+    prevPropsScrollToColumn: 0,
+    prevPropsScrollToRow: 0,
   };
 
   _columnStartIndex = 0;
@@ -59,10 +65,14 @@ class ArrowKeyStepper extends React.PureComponent<Props, State> {
     }
 
     if (
-      nextProps.scrollToColumn !== prevState.scrollToColumn ||
-      nextProps.scrollToRow !== prevState.scrollToRow
+      (nextProps.scrollToColumn !== prevState.prevPropsScrollToColumn &&
+        nextProps.scrollToColumn !== prevState.scrollToColumn) ||
+      (nextProps.scrollToRow !== prevState.prevPropsScrollToRow &&
+        nextProps.scrollToRow !== prevState.scrollToRow)
     ) {
       return {
+        prevPropsScrollToColumn: nextProps.scrollToColumn,
+        prevPropsScrollToRow: nextProps.scrollToRow,
         scrollToColumn: nextProps.scrollToColumn,
         scrollToRow: nextProps.scrollToRow,
       };

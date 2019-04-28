@@ -249,6 +249,15 @@ type State = {
   scrollTop: number,
   scrollPositionChangeReason: 'observed' | 'requested' | null,
   needToResetStyleCache: boolean,
+
+  prevPropsColumnCount: number | null,
+  prevPropsRowCount: number | null,
+  prevPropsScrollLeft: number | null,
+  prevPropsScrollTop: number | null,
+  prevPropsColumnWidth: number | null,
+  prevPropsRowHeight: number | null,
+  prevPropsScrollToColumn: number | null,
+  prevPropsScrollToRow: number | null,
 };
 
 /**
@@ -355,6 +364,14 @@ class Grid extends React.PureComponent<Props, State> {
       scrollPositionChangeReason: null,
 
       needToResetStyleCache: false,
+      prevPropsColumnCount: null,
+      prevPropsRowCount: null,
+      prevPropsScrollLeft: null,
+      prevPropsScrollTop: null,
+      prevPropsColumnWidth: null,
+      prevPropsRowHeight: null,
+      prevPropsScrollToColumn: null,
+      prevPropsScrollToRow: null,
     };
 
     if (props.scrollToRow > 0) {
@@ -823,19 +840,37 @@ class Grid extends React.PureComponent<Props, State> {
     const newState = {};
 
     if (
-      (nextProps.columnCount === 0 && prevState.scrollLeft !== 0) ||
-      (nextProps.rowCount === 0 && prevState.scrollTop !== 0)
+      (prevState.prevPropsColumnCount !== nextProps.columnCount &&
+        nextProps.columnCount === 0 &&
+        prevState.scrollLeft !== 0) ||
+      (prevState.prevPropsRowCount !== nextProps.rowCount &&
+        nextProps.rowCount === 0 &&
+        prevState.scrollTop !== 0)
     ) {
       newState.scrollLeft = 0;
       newState.scrollTop = 0;
-
+      newState.prevPropsColumnCount = nextProps.columnCount;
+      newState.prevPropsRowCount = nextProps.rowCount;
       // only use scroll{Left,Top} from props if scrollTo{Column,Row} isn't specified
       // scrollTo{Column,Row} should override scroll{Left,Top}
     } else if (
-      (nextProps.scrollLeft !== prevState.scrollLeft &&
+      (prevState.prevPropsScrollLeft !== nextProps.scrollLeft ||
+        prevState.prevPropsScrollTop !== nextProps.scrollTop ||
+        nextProps.scrollToColumn !== prevState.prevPropsScrollToColumn ||
+        nextProps.scrollToRow !== prevState.prevPropsScrollToRow) && // prevState.prevPropsScrollLeft !== nextProps.scrollLeft &&
+      ((nextProps.scrollLeft !== prevState.scrollLeft &&
+        // prevState.prevPropsScrollToColumn !== nextProps.scrollToColumn &&
         nextProps.scrollToColumn < 0) ||
-      (nextProps.scrollTop !== prevState.scrollTop && nextProps.scrollToRow < 0)
+        // prevState.prevPropsScrollTop !== nextProps.scrollTop &&
+        (nextProps.scrollTop !== prevState.scrollTop &&
+          // prevState.prevPropsScrollToRow !== nextProps.scrollToRow &&
+          nextProps.scrollToRow < 0))
     ) {
+      newState.prevPropsScrollLeft = nextProps.scrollLeft;
+      newState.prevPropsScrollTop = nextProps.scrollTop;
+      newState.prevPropsScrollToColumn = nextProps.scrollToColumn;
+      newState.prevPropsScrollToRow = nextProps.scrollToRow;
+
       Object.assign(
         newState,
         Grid._getScrollToPositionStateUpdate({

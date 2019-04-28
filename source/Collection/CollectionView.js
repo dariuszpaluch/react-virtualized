@@ -144,6 +144,9 @@ class CollectionView extends React.PureComponent {
     isScrolling: false,
     scrollLeft: 0,
     scrollTop: 0,
+    prevPropsScrollLeft: 0,
+    prevPropsScrollTop: 0,
+    prevPropsCellCount: 0,
   };
 
   _calculateSizeAndPositionDataOnNextUpdate = false;
@@ -187,16 +190,20 @@ class CollectionView extends React.PureComponent {
    */
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
+      prevState.prevPropsCellCount !== nextProps.cellCount &&
       nextProps.cellCount === 0 &&
       (prevState.scrollLeft !== 0 || prevState.scrollTop !== 0)
     ) {
       return {
         scrollLeft: 0,
         scrollTop: 0,
+        prevPropsCellCount: nextProps.cellCount,
       };
     } else if (
-      nextProps.scrollLeft !== prevState.scrollLeft ||
-      nextProps.scrollTop !== prevState.scrollTop
+      (prevState.prevPropsScrollLeft !== nextProps.scrollLeft &&
+        nextProps.scrollLeft !== prevState.scrollLeft) ||
+      (prevState.prevPropsScrollTop !== nextProps.scrollTop &&
+        nextProps.scrollTop !== prevState.scrollTop)
     ) {
       return {
         scrollLeft:
@@ -207,6 +214,8 @@ class CollectionView extends React.PureComponent {
           nextProps.scrollTop != null
             ? nextProps.scrollTop
             : prevState.scrollTop,
+        prevPropsScrollLeft: nextProps.scrollLeft,
+        prevPropsScrollTop: nextProps.scrollTop,
       };
     }
 
