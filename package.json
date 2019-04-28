@@ -150,12 +150,12 @@
     "postcss-loader": "^2.0.9",
     "prettier": "^1.9.2",
     "puppeteer": "^1.1.1",
-    "react": "^16.4.0",
+    "react": "^16.8.4",
     "react-codemirror": "^1.0.0",
-    "react-dom": "^16.4.0",
+    "react-dom": "^16.8.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-test-renderer": "^16.2.0",
+    "react-test-renderer": "^16.8.4",
     "rimraf": "^2.4.3",
     "rollup": "^0.57.1",
     "rollup-plugin-babel": "^3.0.3",
@@ -177,8 +177,8 @@
     "react-lifecycles-compat": "^3.0.4"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0-alpha",
-    "react-dom": "^15.3.0 || ^16.0.0-alpha"
+    "react": "^15.3.0 || ^16.0.0-alpha || ^16.0.0",
+    "react-dom": "^15.3.0 || ^16.0.0-alpha || ^16.0.0"
   },
   "browserify": {
     "transform": [
